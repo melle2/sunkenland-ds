@@ -26,11 +26,11 @@ if [[ ${GAME_MAX_PLAYER} =~ ^[0-9]+$ ]]; then
   MAX_PLAYER_PARAM="-maxPlayerCapacity ${GAME_MAX_PLAYER}"
 fi
 
-if ${GAME_SESSION_INVISIBLE}; then
+if ${GAME_SESSION_INVISIBLE} = true; then
   SESSION_INVISIBLE="-makeSessionInvisible true"
 fi
 
-if ${GAME_UPDATE}; then
+if ${GAME_UPDATE} = true; then
   echo "Start game update..."
   steamcmd +force_install_dir /${USER_NAME} +login anonymous +@sSteamCmdForcePlatformType windows +app_update ${APP_ID} validate +quit
   echo "Game update done"
