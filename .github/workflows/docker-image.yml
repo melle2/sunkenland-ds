@@ -1,0 +1,21 @@
+name: Docker Image Sunkenland CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Read VERSION file
+      id: getversion
+      run: echo "::set-output name=version::$(cat VERSION)"
+
+    - name: Build Sunkenland Docker image
+      run: docker build . --file Dockerfile --tag sunkenland-ds:${{ steps.getversion.outputs.version }}
