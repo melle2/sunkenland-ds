@@ -15,7 +15,7 @@ jobs:
 
     - name: Read VERSION file
       id: getversion
-      run: echo "::set-output name=version::$(cat VERSION)"
+      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_OUTPUT
 
     - name: Build Sunkenland Docker image
-      run: docker build . --file Dockerfile --tag sunkenland-ds:${{ steps.getversion.outputs.version }}
+      run: docker build . --file Dockerfile --tag sunkenland-ds:${{ steps.getversion.outputs.VERSION }}
