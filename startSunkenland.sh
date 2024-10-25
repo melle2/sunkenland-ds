@@ -31,7 +31,7 @@ if ${GAME_SESSION_INVISIBLE} = true; then
 fi
 
 if ${GAME_UPDATE} = true; then
-  if [ -z "${GAME_BETA_VERSION}" ]; then
+  if [ -n "${GAME_BETA_VERSION}" ]; then
     BETA_VERSION="-beta ${GAME_BETA_VERSION}"
     echo "Updating to beta version ${GAME_BETA_VERSION}"
   fi
