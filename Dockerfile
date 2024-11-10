@@ -1,4 +1,4 @@
-FROM melle2/wine-steamcmd-ubuntu:latest
+FROM wine-steamcmd-ubuntu:22.04-2
 
 ENV USER_NAME=sunkenland \
     APP_ID=2667530
