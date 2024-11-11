@@ -22,7 +22,7 @@ However, you can even mount the complete folder `/sunkenland`, but bear in mind 
 If your port is already blocked by another game, you can change the port mapping to something different, i.e. `-p 29015:27015`
 
 ### Game updates
-With this image it is possible to update the game to the latest version - see `GAME_UPDATE` parameter. It is also possible to get a beta version - see `GAME_BETA_VERSION`. Keep in mind, a beta server might not be available for a specific beta client version. (!)Do not set this value if you want to run the latest public release.
+With this image it is possible to update the game to the latest version - see `GAME_UPDATE` parameter. It is also possible to get a beta version - see `GAME_BETA_VERSION`. Keep in mind, a beta server might not be available for a specific beta client version. **Do not set `GAME_BETA_VERSION` if you want to run the latest public release**.
 
 ### Environment variables
 The only mandatory requirement for Sunkeland to be able to run is to pass the WorlGUID as a start parameter. Additionally, to gain more control about some of the Sunkenland Dedicated Server configuration parameter, you can set some more specific environment variables.
