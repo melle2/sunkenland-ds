@@ -22,6 +22,10 @@ if [ -z "${GAME_REGION}" ]; then
   GAME_REGION=eu
 fi
 
+if [ -z "${GAME_X_SLEEP}" ]; then
+  GAME_X_SLEEP=0
+fi
+
 if [[ ${GAME_MAX_PLAYER} =~ ^[0-9]+$ ]]; then
   MAX_PLAYER_PARAM="-maxPlayerCapacity ${GAME_MAX_PLAYER}"
 fi
@@ -41,6 +45,8 @@ if ${GAME_UPDATE} = true; then
 fi
 
 /etc/init.d/xvfb start
+echo "Sleeping for ${GAME_X_SLEEP} seconds to allow X to finish starting"
+sleep ${GAME_X_SLEEP}
 exec wine Sunkenland-DedicatedServer.exe -nographics -batchmode -worldGuid "${GAME_WORLD_GUID}" ${SESSION_INVISIBLE} \
         -password "${GAME_PASSWORD}" ${MAX_PLAYER_PARAM} -region "${GAME_REGION}" &
 
