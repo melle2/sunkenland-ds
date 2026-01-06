@@ -1,5 +1,5 @@
 ## Sunkenland Dedicated Server
-This image is based on wine, Xvfb and SteamCMD. It does already have an installed version of Sunkenland, but it is also able to update the version at any time.
+This image is based on wine, Xvfb and SteamCMD. It will update the respective version during startup.
 
 ## What you should know
 1. This image is based on another "basic image" (wine-steamcmd-ubuntu 24.04), which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
