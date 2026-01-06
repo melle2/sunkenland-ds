@@ -2,7 +2,7 @@
 This image is based on wine, Xvfb and SteamCMD. It does already have an installed version of Sunkenland, but it is also able to update the version at any time.
 
 ## What you should know
-1. This image is based on another "basic image" (wine-steamcmd-ubuntu), which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
+1. This image is based on another "basic image" (wine-steamcmd-ubuntu 24.04), which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
 2. You should have a basic understanding how to deal with Docker and Linux. All documentation is based on a Linux environment. However, it is possible to run this also in a Windows environment which has an installation of Docker/K8s. 
 3. Internally the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000.
 
@@ -13,10 +13,14 @@ This image is based on wine, Xvfb and SteamCMD. It does already have an installe
 4. Run your container with docker or docker-compose.
 
 ### Volume
-Within the image, Sunkenland Dedicated Server is installed to folder `/sunkenland` which also is the home directory for `sunkenland` user. The implementation expects the world files mounted to `/sunkenland/Worlds`.
+Within the image, Sunkenland Dedicated Server is installed to folder `/sunkenland/game`. The home directory for `sunkenland` user is `/sunkenland/`. The implementation expects the world files mounted to `/sunkenland/Worlds`.
 If the Sunkenland Dedicated Server cannot find the world files, it will post the respective message to the console.
+You should mount th following volumes so that the installation files stay on your host instead inside the container:
+- `/sunkenland/game`
+- `/sunkenland/Worlds`
+- `/sunkenland/Steam`
 
-However, you can even mount the complete folder `/sunkenland`, but bear in mind that internally a soft-link is used to link the world folder from `/sunkenland/Worlds` to the respective "Windows" target location. If you want to do this, you have to add a mount for the target location, too. The target location is defined in `Dockerfile` environment variable `WORLD_FOLDER`. What you have to do in any case is to change the owner:group of the mounted folder.  
+However, you can even mount the complete folder `/sunkenland`, but bear in mind that internally a soft-link is being used to link the world folder from `/sunkenland/Worlds` to the respective "Windows" target location. If you want to do this, you have to add a mount for the target location, too. The target location is defined in `Dockerfile` environment variable `WORLD_FOLDER`. What you have to do in any case is to change the owner:group of the mounted folder.  
 
 ### Ports
 If your port is already blocked by another game, you can change the port mapping to something different, i.e. `-p 29015:27015`
@@ -45,7 +49,9 @@ docker run -d \
 	--name sunkenland-dedicated-server \
 	-p 27015:27015 \
 	-e GAME_WORLD_GUID=<world_guid> \
-	-v /opt/sunkenland/:/sunkenland/Worlds \
+	-v /opt/sunkenland/Wordls:/sunkenland/Worlds \
+	-v /opt/sunkenland/game:/sunkenland/game \
+	-v /opt/sunkenland/Steam:/sunkenland/Steam \
 	melle2/sunkenland-ds:latest
 ```
 
@@ -68,7 +74,9 @@ services:
     ports:
       - 27015:27015
     volumes:
-      - /opt/sunkenland/:/sunkenland/Worlds
+      - /opt/sunkenland/Worlds:/sunkenland/Worlds
+      - /opt/sunkenland/game:/sunkenland/game
+      - /opt/sunkenland/Steam:/sunkenland/Steam
 ```
 
 ### DockerHub

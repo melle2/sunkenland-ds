@@ -6,6 +6,7 @@ set -e
     rm -f /tmp/.X1-lock
   fi
 
+
 _terminate() {
   echo "Caught TERM signal!"
   echo "Stopping Sunkenland"
@@ -25,26 +26,25 @@ if [ -z "${GAME_REGION}" ]; then
 fi
 
 if [[ ${GAME_MAX_PLAYER} =~ ^[0-9]+$ ]]; then
-  MAX_PLAYER_PARAM="-maxPlayerCapacity ${GAME_MAX_PLAYER}"
+  MAX_PLAYER_PARAM=" -maxPlayerCapacity ${GAME_MAX_PLAYER}"
 fi
 
 if [ "${GAME_SESSION_INVISIBLE}" = true ]; then
-  SESSION_INVISIBLE="-makeSessionInvisible true"
+  SESSION_INVISIBLE=" -makeSessionInvisible true"
 fi
 
-if [ "$GAME_UPDATE" = true ]; then
+if [ "$GAME_UPDATE" = true ] || [ -z "$(ls -A /sunkenland/game)" ]; then
   if [ -n "${GAME_BETA_VERSION}" ]; then
-    BETA_VERSION="-beta ${GAME_BETA_VERSION}"
+    BETA_VERSION=" -beta ${GAME_BETA_VERSION}"
     echo "Updating to beta version ${GAME_BETA_VERSION}"
   fi
   echo "Start game update..."
-  steamcmd +force_install_dir "/${USER_NAME}" +login anonymous +@sSteamCmdForcePlatformType windows +app_update \
-           "${APP_ID}" "${BETA_VERSION}" validate +quit
+  steamcmd +force_install_dir /${USER_NAME}/game +@sSteamCmdForcePlatformType windows +login anonymous +app_update \
+           "${APP_ID}" ${BETA_VERSION} validate +quit
   echo "Game update done"
 fi
 
 /etc/init.d/xvfb start
-exec wine Sunkenland-DedicatedServer.exe -nographics -batchmode -worldGuid "${GAME_WORLD_GUID}" "${SESSION_INVISIBLE}" \
-        -password "${GAME_PASSWORD}" "${MAX_PLAYER_PARAM}" -region "${GAME_REGION}" &
+exec wine /${USER_NAME}/game/Sunkenland-DedicatedServer.exe -nographics -batchmode -worldGuid ${GAME_WORLD_GUID}${MAX_PLAYER_PARAM}${SESSION_INVISIBLE} -password "${GAME_PASSWORD}" -region "${GAME_REGION}" &
 
 wait
