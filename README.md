@@ -1,15 +1,15 @@
 ## Sunkenland Dedicated Server
-This image is based on wine, Xvfb and SteamCMD. It does already have an installed version of Sunkenland, but it is also able to update the version at any time.
+This Docker image provides a streamlined way to run a Sunkenland Dedicated Server using Wine, Xvfb, and SteamCMD. The image automatically handles the installation and updates of the game files during startup.
 
 ## What you should know
-1. This image is based on another "basic image" (wine-steamcmd-ubuntu 24.04), which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
-2. You should have a basic understanding how to deal with Docker and Linux. All documentation is based on a Linux environment. However, it is possible to run this also in a Windows environment which has an installation of Docker/K8s. 
-3. Internally the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000. But you're able to choose the IDs by yourself by adding `USER_ID` and `GROUP_ID` as variables to your environment. 
+1. This image is based on another "basic image" ``wine-steamcmd-ubuntu 24.04``, which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
+2. You should have a basic understanding of Docker and Linux. All documentation is based on a Linux environment. While documented for Linux, this image is compatible with Windows-based Docker/K8s environments. 
+3. Internally, the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000. But you're able to choose the IDs by yourself by adding `USER_ID` and `GROUP_ID` as variables to your environment.
 
-## How to start
+## Getting Started
 1. Create your own World in Sunkenland game - or re-use an already existing world.
-2. Copy the World folder to a target destination on your host (i.e. /opt/sunkenland).
-3. You must change the owner:group of your target folder to 7000:7000 - or to respective IDs you've set by `USER_ID` and `GROUP_ID`.
+2. Copy the world folder to a target destination on your host (e.g. /opt/sunkenland).
+3. You must change the owner:group of your target folder to 7000:7000 - or to respective IDs you've set by `USER_ID` and `GROUP_ID`..
 4. Run your container with docker or docker-compose.
 
 ### Volume
@@ -26,7 +26,7 @@ However, you can even mount the complete folder `/sunkenland`, but bear in mind 
 If your port is already blocked by another game, you can change the port mapping to something different, i.e. `-p 29015:27015`
 
 ### Game updates
-With this image it is possible to update the game to the latest version - see `GAME_UPDATE` parameter. It is also possible to get a beta version - see `GAME_BETA_VERSION`. Keep in mind, a beta server might not be available for a specific beta client version. (!)Do not set this value if you want to run the latest public release.
+With this image it is possible to update the game to the latest version - see `GAME_UPDATE` parameter. It is also possible to get a beta version - see `GAME_BETA_VERSION`. Keep in mind, a beta server might not be available for a specific beta client version. **Do not set `GAME_BETA_VERSION` if you want to run the latest public release**.
 
 ### Environment variables
 The only mandatory requirement for Sunkeland to be able to run is to pass the WorlGUID as a start parameter. Additionally, to gain more control about some of the Sunkenland Dedicated Server configuration parameter, you can set some more specific environment variables.
