@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-  # Check if .X1-lock file exists and remove. Otherwise Xvfb cannot start.
-  if  test -f /tmp/.X1-lock; then
-    rm -f /tmp/.X1-lock
-  fi
-
+# Check if .X1-lock file exists and remove. Otherwise Xvfb cannot start.
+[ -f /tmp/.X1-lock ] && rm -f /tmp/.X1-lock
 
 _terminate() {
   echo "Caught TERM signal!"
@@ -45,6 +42,6 @@ if [ "$GAME_UPDATE" = true ] || [ -z "$(ls -A /sunkenland/game)" ]; then
 fi
 
 /etc/init.d/xvfb start
-exec wine /${USER_NAME}/game/Sunkenland-DedicatedServer.exe -nographics -batchmode -worldGuid ${GAME_WORLD_GUID}${MAX_PLAYER_PARAM}${SESSION_INVISIBLE} -password "${GAME_PASSWORD}" -region "${GAME_REGION}" &
+wine /${USER_NAME}/game/Sunkenland-DedicatedServer.exe -nographics -batchmode -worldGuid ${GAME_WORLD_GUID}${MAX_PLAYER_PARAM}${SESSION_INVISIBLE} -password "${GAME_PASSWORD}" -region "${GAME_REGION}" &
 
 wait

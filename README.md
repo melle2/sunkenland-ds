@@ -79,9 +79,9 @@ services:
       - /opt/sunkenland/Steam:/sunkenland/Steam
 ```
 
-### DockerHub
+### 📦 DockerHub
 Docker Image is available at https://hub.docker.com/repository/docker/melle2/sunkenland-ds.
 `docker pull melle2/sunkenland-ds`
 
-### Improvements
-If you see improvements, feel free to contribute and create a PR.
+### 🤝 Contributing
+Found a bug or have a feature request? Feel free to open an issue or submit a Pull Request!
