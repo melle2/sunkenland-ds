@@ -4,12 +4,12 @@ This Docker image provides a streamlined way to run a Sunkenland Dedicated Serve
 ## What you should know
 1. This image is based on another "basic image" ``wine-steamcmd-ubuntu 24.04``, which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
 2. You should have a basic understanding of Docker and Linux. All documentation is based on a Linux environment. While documented for Linux, this image is compatible with Windows-based Docker/K8s environments. 
-3. Internally, the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000. But you're able to choose the IDs by yourself by adding `USER_ID` and `GROUP_ID` as variables to your environment.
+3. Internally, the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000.
 
 ## Getting Started
 1. Create your own World in Sunkenland game - or re-use an already existing world.
 2. Copy the world folder to a target destination on your host (e.g. /opt/sunkenland).
-3. You must change the owner:group of your target folder to 7000:7000 - or to respective IDs you've set by `USER_ID` and `GROUP_ID`..
+3. You must change the owner:group of your target folder to 7000:7000.
 4. Run your container with docker or docker-compose.
 
 ### Volume
