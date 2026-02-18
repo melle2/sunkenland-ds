@@ -79,6 +79,9 @@ services:
       - /opt/sunkenland/Steam:/sunkenland/Steam
 ```
 
+### 📦 Github
+You can find the source for this Docker image in my [Github repository](https://github.com/melle2/sunkenland-ds)
+
 ### 📦 DockerHub
 Docker Image is available at https://hub.docker.com/repository/docker/melle2/sunkenland-ds.
 `docker pull melle2/sunkenland-ds`
