@@ -4,18 +4,18 @@ This image is based on wine, Xvfb and SteamCMD. It does already have an installe
 ## What you should know
 1. This image is based on another "basic image" (wine-steamcmd-ubuntu 24.04), which I've created to not only use it for Sunkenland, but also for all other kind of Windows based dedicated game servers. 
 2. You should have a basic understanding how to deal with Docker and Linux. All documentation is based on a Linux environment. However, it is possible to run this also in a Windows environment which has an installation of Docker/K8s. 
-3. Internally the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000.
+3. Internally the dedicated server is executed as user/group "sunkenland" - UserID 7000, GroupId 7000. But you're able to choose the IDs by yourself by adding `USER_ID` and `GROUP_ID` as variables to your environment. 
 
 ## How to start
 1. Create your own World in Sunkenland game - or re-use an already existing world.
 2. Copy the World folder to a target destination on your host (i.e. /opt/sunkenland).
-3. You must change the owner:group of your target folder to 7000:7000.
+3. You must change the owner:group of your target folder to 7000:7000 - or to respective IDs you've set by `USER_ID` and `GROUP_ID`.
 4. Run your container with docker or docker-compose.
 
 ### Volume
 Within the image, Sunkenland Dedicated Server is installed to folder `/sunkenland/game`. The home directory for `sunkenland` user is `/sunkenland/`. The implementation expects the world files mounted to `/sunkenland/Worlds`.
 If the Sunkenland Dedicated Server cannot find the world files, it will post the respective message to the console.
-You should mount th following volumes so that the installation files stay on your host instead inside the container:
+You should mount the following volumes so that the installation files stay on your host instead inside the container:
 - `/sunkenland/game`
 - `/sunkenland/Worlds`
 - `/sunkenland/Steam`
